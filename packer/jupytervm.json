@@ -1,0 +1,39 @@
+{
+    "variables": {
+	"ssh_user": "u18fest",
+	"ssh_pass": "u18fest"
+    },
+    "builders" : [
+	{
+	    "type" : "virtualbox-iso",
+	    "iso_url" : "./CentOS-7-x86_64-Minimal-1810.iso",
+	    "iso_checksum_type": "sha256",
+	    "iso_checksum": "38d5d51d9d100fd73df031ffd6bd8b1297ce24660dc8c13a3b8b4534a4bd291c",
+	    "ssh_username": "{{user `ssh_user`}}",
+	    "ssh_password": "{{user `ssh_pass`}}",
+	    "shutdown_command": "echo '{{user `ssh_pass`}}' | sudo -S shutdown -P now",
+	    "guest_os_type": "RedHat_64",
+	    "vm_name" : "jupytervm_u18fest",
+	    "http_directory": "http",
+	    "output_directory": "builds",
+	    "boot_wait": "10s",
+	    "disk_size": "10240",
+	    "boot_command": [
+		"<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+	    ],
+	    "vboxmanage": [
+		["modifyvm", "{{.Name}}", "--memory", "4096"],
+		["modifyvm", "{{.Name}}", "--cpus", "2"],
+		["modifyvm", "{{.Name}}", "--audio", "none"],
+		["modifyvm", "{{.Name}}", "--usb", "off"],
+		[ "modifyvm", "{{.Name}}", "--natpf1", "jupyter,tcp,,9000,,9000"]
+	    ]
+	}
+    ],
+    "provisioners": [
+	{
+	    "type": "shell",
+	    "script": "scripts/miniconda-setup.sh"
+	}
+    ]
+}
