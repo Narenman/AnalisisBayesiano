@@ -1,7 +1,8 @@
 {
     "variables": {
 	"ssh_user": "u18fest",
-	"ssh_pass": "u18fest"
+	"ssh_pass": "u18fest",
+	"git_sha" : "none"
     },
     "builders" : [
 	{
@@ -13,7 +14,7 @@
 	    "ssh_password": "{{user `ssh_pass`}}",
 	    "shutdown_command": "echo '{{user `ssh_pass`}}' | sudo -S shutdown -P now",
 	    "guest_os_type": "RedHat_64",
-	    "vm_name" : "jupytervm_u18fest",
+	    "vm_name" : "jupytervm_u18fest_{{user `git_sha`}}",
 	    "http_directory": "http",
 	    "output_directory": "builds",
 	    "boot_wait": "10s",

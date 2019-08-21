@@ -11,7 +11,7 @@ validate: packer
 	./packer validate ${JSON}
 
 build:
-	./packer build ${JSON}
+	./packer build ${JSON} -var "git_sha=`git rev-parse --short HEAD`"
 
 clean:
 	rm -rf $(CURRENT_DIR)/builds

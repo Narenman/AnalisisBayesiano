@@ -12,7 +12,7 @@ bash ~/miniconda.sh -b -p $HOME/miniconda
 
 # Set up the environment
 source ~/miniconda/bin/activate root
-conda create -n u18fest_env numpy=1.15.* gxx_linux-x64
+conda create -n u18fest_env numpy=1.15.* gxx_linux-64
 conda activate u18fest_env
 conda install pymc3 jupyter
 
