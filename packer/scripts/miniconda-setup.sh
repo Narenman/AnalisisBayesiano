@@ -48,7 +48,7 @@ echo -e '	** Direct your browser to http://localhost:9000 **'
 echo -e '	**************************************************'
 echo -e '\n'
 }"  >> ~/.bashrc
-echo "git-update {
+echo "git-update () {
 git reset --hard
 git pull
 }" >> ~/.bashrc
