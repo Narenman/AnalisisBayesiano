@@ -1,0 +1,108 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeu18fest}
+
+\mode<presentation>
+
+\RequirePackage{tikz}
+\RequirePackage{fontspec}
+\RequirePackage{polyglossia}
+\setdefaultlanguage{spanish}
+
+\usefonttheme{professionalfonts}
+\usefonttheme[onlymath]{serif}
+
+\setbeamercolor*{frametitle}{fg=darkgray, bg=lightgray}
+\setbeamercolor*{date in header/foot}{fg=gray}
+
+\setbeamerfont*{title}{size=\huge, shape=\bfseries}
+\setbeamerfont*{subtitle}{size=\normalsize}
+\setbeamerfont*{institute}{size=\normalsize}
+\setbeamerfont*{date}{size=\normalsize}
+\setbeamerfont*{frametitle}{size=\Large}
+
+\defbeamertemplate*{frametitle}{plain}{%
+  \ifnum\value{framenumber}>0%
+  \vspace{-1pt}%
+  \begin{beamercolorbox}[wd=\paperwidth, leftskip=0.2cm, rightskip=0.2cm, sep=0.5cm]{frametitle}%
+    \strut\insertframetitle\strut%
+  \end{beamercolorbox}
+  \fi%
+}
+
+\defbeamertemplate*{footline}{plain}{%
+  \ifnum\insertpagenumber=1%
+  \begin{beamercolorbox}[wd=\paperwidth, sep=0.3cm]{date in header/foot}
+    \hfill\usebeamerfont{date in header/foot}{\today\makebox[0.1cm]}
+  \end{beamercolorbox}
+  \else
+  \begin{beamercolorbox}[wd=\paperwidth, sep=0.3cm]{date in header/foot}
+    \hfill\usebeamerfont{date in header/foot}{%
+      \makebox[0.3cm]{\hfill\insertframenumber / \inserttotalframenumber}\makebox[0.1cm]{}%
+    }
+  \end{beamercolorbox}
+  \fi
+}
+
+\defbeamertemplate*{title page}{plain}{%
+  {%
+    \usebeamercolor{frametitle}\colorlet{tsbg}{bg}
+    \begin{tikzpicture}[overlay, remember picture]
+      \fill[color=tsbg] (current page.north west) rectangle ([shift = {(0, -0.6\paperheight)}] current page.north east);
+    \end{tikzpicture}
+  }%
+  %
+  \ifx\insertsubtitle\@empty%
+  {%
+    \vspace{-\baselineskip}
+    \begin{minipage}[b][0.6\paperheight]{\textwidth}
+      \usebeamerfont{title}%
+      \usebeamercolor[fg]{frametitle}%
+      \inserttitle
+      \vspace{2.5\baselineskip}
+    \end{minipage}
+  }%
+  \else {%
+    \vspace{-2\baselineskip}
+    \begin{minipage}[b][0.2\paperheight]{\textwidth}
+      \vspace{\baselineskip}%
+      \usebeamerfont{subtitle}%
+      \usebeamercolor[fg]{frametitle}%
+      \insertsubtitle
+    \end{minipage}
+    %
+    \begin{minipage}[b][0.4\paperheight]{\textwidth}
+      \usebeamerfont{title}%
+      \usebeamercolor[fg]{frametitle}%
+      \inserttitle
+      \vspace{\baselineskip}
+    \end{minipage}
+  } \fi
+  
+  \vspace{\baselineskip}
+  
+  \begin{minipage}[t]{\textwidth}
+    \usebeamerfont{author}
+    \insertauthor
+  \end{minipage}
+    
+  \begin{minipage}[t]{\textwidth}
+    \usebeamerfont{institute}
+    \insertinstitute
+  \end{minipage}
+    
+  \begin{minipage}[t]{\textwidth}
+    \usebeamerfont{date}
+    \insertdate
+  \end{minipage}
+
+  \vspace*{0pt plus 100fill}
+}
+
+\setbeamertemplate{section in toc}[square]
+\setbeamertemplate{subsection in toc}[square]
+\setbeamertemplate{itemize items}[square]
+\setbeamertemplate{itemize subitems}[triangle]
+
+\setbeamertemplate{navigation symbols}{}
+
+\mode<all>
