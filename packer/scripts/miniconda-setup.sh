@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo yum install -y git wget gcc-c++
+sudo yum install -y git wget gcc-c++ emacs
 sudo yum update -y
 sudo yum clean all
 git clone https://github.com/dbarajassolano/u18fest.git
@@ -34,10 +34,20 @@ echo -e "${BANNER_MSG}" | sudo tee /etc/issue     > /dev/null
 echo -e "${BANNER_MSG}" | sudo tee /etc/issue.net > /dev/null
 
 echo "alias shutdown='sudo shutdown -h 0'" >> ~/.bashrc
+echo "alias jupyter='~/miniconda/envs/u18fest_env/bin/jupyter'" >> ~/.bashrc
 echo "alias jupyter-stop='~/miniconda/envs/u18fest_env/bin/jupyter notebook stop 9000'" >> ~/.bashrc
 echo "jupyter-start () {
 cd ~/u18fest/notebooks
 ~/miniconda/envs/u18fest_env/bin/jupyter notebook --port=9000 --no-browser --ip=0.0.0.0 &
+echo -e '\n'
+echo -e	'	**************************************************'
+echo -e '	** Direct your browser to http://localhost:9000 **'
+echo -e '	**************************************************'
+echo -e '\n'
 }"  >> ~/.bashrc
+echo "git-update {
+git reset --hard
+git pull
+}" >> ~/.bashrc
 
 sync
