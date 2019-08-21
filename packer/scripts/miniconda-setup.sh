@@ -14,7 +14,7 @@ bash ~/miniconda.sh -b -p $HOME/miniconda
 ~/miniconda/bin/conda create -n u18fest_env numpy=1.15.* gxx_linux-64 pymc3 jupyter
 
 # Configure Jupyter
-~/miniconda/envs/u18fest_env/jupyter notebook --generate-config
+~/miniconda/envs/u18fest_env/bin/jupyter notebook --generate-config
 echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py
 
