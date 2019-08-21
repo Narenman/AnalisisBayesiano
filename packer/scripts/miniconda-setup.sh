@@ -11,16 +11,12 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O mi
 bash ~/miniconda.sh -b -p $HOME/miniconda
 
 # Set up the environment
-source ~/miniconda/bin/activate root
-conda create -n u18fest_env numpy=1.15.* gxx_linux-64
-conda activate u18fest_env
-conda install pymc3 jupyter
+~/miniconda/bin/conda create -n u18fest_env numpy=1.15.* gxx_linux-64
 
 # Configure Jupyter
-jupyter notebook --generate-config
+~/miniconda/envs/u18fest_env/jupyter notebook --generate-config
 echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py
 echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py
 
 # Wrap up
-conda deactivate
 sync
