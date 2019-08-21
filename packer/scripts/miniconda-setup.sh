@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo yum install -y git wget
+sudo yum install -y git wget gcc-c++
 sudo yum update -y
 sudo yum clean all
 git clone https://github.com/dbarajassolano/u18fest.git
