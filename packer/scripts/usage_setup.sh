@@ -9,8 +9,8 @@ shutdown      = Shut down the VM
 \S
 Kernel \r on an \m"
 
-echo -e '${BANNER_MSG}' | sudo tee -a /etc/issue     > /dev/null
-echo -e '${BANNER_MSG}' | sudo tee -a /etc/issue.net > /dev/null
+echo -e "${BANNER_MSG}" | sudo tee -a /etc/issue     > /dev/null
+echo -e "${BANNER_MSG}" | sudo tee -a /etc/issue.net > /dev/null
 
 echo "alias shutdown='sudo shutdown -h 0'" >> ~/.bashrc
 echo "alias jupyter-stop='jupyter notebook stop 9000'" >> ~/.bashrc
