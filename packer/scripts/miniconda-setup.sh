@@ -22,11 +22,14 @@ echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py
 BANNER_MSG="**************************************************\n
 Jupyter VM for U18 Fest
 
-Your login is u18fest and your password is u18fest 
+Commands
+*	jupyter-start = Start Jupyter server
+*	jupyter-stop  = Stop Jupyter server
+*	git-update    = Update the Git repository
+*	shutdown      = Shut down the VM
 
-jupyter-start = Start Jupyter server
-jupyter-stop  = Stop Jupyter server
-shutdown      = Shut down the VM
+Your login is u18fest and your password is u18fest 
+Please login:
 
 **************************************************\n"
 
