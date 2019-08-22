@@ -22,7 +22,7 @@
 *.out
 *.nav
 *.snm
+*.pdf
 *.synctex.gz
 
-test.pdf
 auto

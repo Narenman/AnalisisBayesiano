@@ -6,16 +6,25 @@
 \RequirePackage{tikz}
 \RequirePackage{fontspec}
 \RequirePackage{polyglossia}
+\RequirePackage{tcolorbox}
+
+\setsansfont[Ligatures=TeX]{PT Sans}
 \setdefaultlanguage{spanish}
+\tcbset{boxsep=1mm, colback=white, colbacktitle=violet!50!white, colframe=violet!50!white}
 
 \usefonttheme{professionalfonts}
 \usefonttheme[onlymath]{serif}
 
-\setbeamercolor*{frametitle}{fg=darkgray, bg=lightgray}
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+
+\setbeamercolor*{frametitle}{fg=violet, bg=violet!40!white}
 \setbeamercolor*{date in header/foot}{fg=gray}
+\setbeamercolor*{itemize item}{fg=violet}
+\setbeamercolor*{itemize subitem}{fg=violet}
 
 \setbeamerfont*{title}{size=\huge, shape=\bfseries}
-\setbeamerfont*{subtitle}{size=\normalsize}
+\setbeamerfont*{subtitle}{size=\normalsize, shape=\itshape}
 \setbeamerfont*{institute}{size=\normalsize}
 \setbeamerfont*{date}{size=\normalsize}
 \setbeamerfont*{frametitle}{size=\Large}
@@ -23,7 +32,7 @@
 \defbeamertemplate*{frametitle}{plain}{%
   \ifnum\value{framenumber}>0%
   \vspace{-1pt}%
-  \begin{beamercolorbox}[wd=\paperwidth, leftskip=0.2cm, rightskip=0.2cm, sep=0.5cm]{frametitle}%
+  \begin{beamercolorbox}[wd=\paperwidth, leftskip=0.2cm, rightskip=0.2cm, sep=0.2cm]{frametitle}%
     \strut\insertframetitle\strut%
   \end{beamercolorbox}
   \fi%
@@ -32,7 +41,7 @@
 \defbeamertemplate*{footline}{plain}{%
   \ifnum\insertpagenumber=1%
   \begin{beamercolorbox}[wd=\paperwidth, sep=0.3cm]{date in header/foot}
-    \hfill\usebeamerfont{date in header/foot}{\today\makebox[0.1cm]}
+    \hfill\usebeamerfont{date in header/foot}{23--26 de septiembre de 2019\makebox[0.1cm]{}}
   \end{beamercolorbox}
   \else
   \begin{beamercolorbox}[wd=\paperwidth, sep=0.3cm]{date in header/foot}
@@ -97,11 +106,6 @@
 
   \vspace*{0pt plus 100fill}
 }
-
-\setbeamertemplate{section in toc}[square]
-\setbeamertemplate{subsection in toc}[square]
-\setbeamertemplate{itemize items}[square]
-\setbeamertemplate{itemize subitems}[triangle]
 
 \setbeamertemplate{navigation symbols}{}
 
