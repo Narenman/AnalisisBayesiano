@@ -23,6 +23,7 @@
 *.nav
 *.snm
 *.pdf
+*.vrb
 *.synctex.gz
 
 auto

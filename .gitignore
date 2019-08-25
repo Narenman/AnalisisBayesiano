@@ -2,6 +2,7 @@
 *~
 .tramp_history
 
+.ipynb_checkpoints
 *.iso
 *.zip
 packer/packer
