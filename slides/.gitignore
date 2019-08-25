@@ -24,6 +24,8 @@
 *.snm
 *.pdf
 *.vrb
+*.fls
+*.fdb_latexmk
 *.synctex.gz
 
 auto
