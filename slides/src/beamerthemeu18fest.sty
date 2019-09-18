@@ -8,12 +8,14 @@
 \RequirePackage{polyglossia}
 \RequirePackage{tcolorbox}
 
-% \setsansfont[Ligatures=TeX]{PT Sans}
 \setmainfont[Ligatures=TeX]{IBM Plex Sans}
 \setsansfont[Ligatures=TeX]{IBM Plex Sans}
 \setmonofont[Ligatures=TeX, BoldFont={IBM Plex Mono Medium}, ItalicFont={IBM Plex Mono Light Italic}]{IBM Plex Mono Light}
 \setdefaultlanguage{spanish}
 \tcbset{boxsep=1mm, colback=white, colbacktitle=violet!50!white, colframe=violet!50!white}
+
+\tcbuselibrary{theorems}
+\newtcbtheorem{definicion}{Definición}{fonttitle=\bfseries}{th}
 
 \DeclareOptionBeamer{presnum}{\def\beamer@X@presnum{#1}}
 \ExecuteOptionsBeamer{presnum=}
