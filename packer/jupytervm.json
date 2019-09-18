@@ -27,7 +27,7 @@
 		["modifyvm", "{{.Name}}", "--cpus", "2"],
 		["modifyvm", "{{.Name}}", "--audio", "none"],
 		["modifyvm", "{{.Name}}", "--usb", "off"],
-		[ "modifyvm", "{{.Name}}", "--natpf1", "jupyter,tcp,,9000,,9000"]
+		["modifyvm", "{{.Name}}", "--natpf1", "jupyter,tcp,,9000,,9000"]
 	    ]
 	}
     ],
