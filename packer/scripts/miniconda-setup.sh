@@ -11,7 +11,7 @@ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O mi
 bash ~/miniconda.sh -b -p $HOME/miniconda
 
 # Set up the environment
-~/miniconda/bin/conda create -n u18fest_env numpy=1.15.* gxx_linux-64 pymc3 jupyterlab
+~/miniconda/bin/conda create -n u18fest_env numpy=1.15.* gxx_linux-64 pymc3 jupyterlab pandas
 
 # Configure Jupyter
 ~/miniconda/envs/u18fest_env/bin/jupyter notebook --generate-config
