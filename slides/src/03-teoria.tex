@@ -387,12 +387,76 @@
   \frametitle{Ejemplo}
   \begin{itemize}
   \item Variable aleatoria normal estándar $X \sim \mathcal{N}(0, 1)$
-  \item Para un valor $\alpha \in [0, 1]$,  hay un intervalo $B = (a, b)$ para el cual
+  \item \textbf{Intervalo de mayor densidad (HDI)}: Para un valor $\alpha \in [0, 1]$,  hay un intervalo $B = (a, b)$ para el cual
     \begin{itemize}
     \item $p(a) = p(b)$
     \item $P(X \in B) = 1 - \alpha$
     \end{itemize}
-  \item 
+  \item Para $\alpha = 0.2$:
+    \begin{overprint}
+      \onslide<1>
+      \begin{figure}
+        \centering
+        \begin{tikzpicture}
+          \begin{axis}[ymin=0, xmin=-3, xmax=3, height=5cm, width=7cm, %
+            extra tick style={%
+              tick align=outside, tick pos=left, grid style={dotted,black}%
+            }, %
+            extra x tick style={%
+              major tick length=1.25\baselineskip%
+            }, %
+            extra y tick style={%
+              major tick length=2.5em%
+            }, %
+            extra x ticks={-1.28, 1.28}, extra x tick labels={$a \approx -1.28$, $b \approx 1.28$}]
+            \addplot [name path=f, samples=150, no markers, blue, thick] {exp{-0.5*x^2}/sqrt{2*pi}};%
+            \path[name path=axis] (axis cs:-1.28,0) -- (axis cs:1.28,0);%
+            \draw[dashed] (axis cs:-3, exp{-0.5*1.28^2}/sqrt{2*pi}) -- (axis cs:3, exp{-0.5*1.28^2}/sqrt{2*pi});%
+            \addplot [thick, color=blue, fill=blue, fill opacity=0.1] fill between [of=f and axis, soft clip={domain=-1.28:1.28}];
+            %
+            \addplot[mark=*,color=blue] coordinates {(-1.28, exp{-0.5*1.28^2}/sqrt{2*pi})};%
+            \draw [dashed] (axis cs: -1.28, 0.0) -- (axis cs: -1.28, exp{-0.5*1.28^2}/sqrt{2*pi});%
+            %
+            \addplot[mark=*,color=blue] coordinates {(1.28, exp{-0.5*1.28^2}/sqrt{2*pi})};%
+            \draw [dashed] (axis cs: 1.28, 0.0) -- (axis cs: 1.28, exp{-0.5*1.28^2}/sqrt{2*pi});%
+          \end{axis}
+        \end{tikzpicture}
+      \end{figure}
+      \onslide<2>
+      \begin{figure}
+        \centering
+        \begin{tikzpicture}
+          \begin{axis}[ymin=0, ymax=1, xmin=-3, xmax=3, height=5cm, width=7cm, %
+            extra tick style={%
+              tick align=outside, tick pos=left, grid style={dotted,black}%
+            }, %
+            extra x tick style={%
+              major tick length=1.25\baselineskip%
+            }, %
+            extra y tick style={%
+              major tick length=2.5em%
+            }, %
+            extra x ticks={-1.28, 1.28}, extra x tick labels={$a \approx -1.28$, $b \approx 1.28$}]
+            \addplot [samples=150, no markers, blue, thick] {normcdf(x, 0, 1)};%
+            \addplot[mark=*,color=blue] coordinates {(-1.28, {normcdf(-1.28, 0, 1)})};%
+            \draw [dashed] (axis cs: -1.28, 0.0) |- (axis cs: -3, {normcdf(-1.28, 0, 1)});%
+            \addplot[mark=*,color=blue] coordinates {(1.28, {normcdf(1.28, 0, 1)})};%
+            \draw [dashed] (axis cs: 1.28, 0.0) |- (axis cs: -3, {normcdf(1.28, 0, 1)});%
+        \end{axis}
+      \end{tikzpicture}
+    \end{figure}
+    \end{overprint}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Ejemplo}
+  \begin{itemize}
+  \item Para la variable aleatoria $X \sim \mathcal{N}(\mu, \sigma)$ y $\alpha = 0.05$,
+    \begin{equation*}
+      \text{HDI} = (\mu - 1.96 \sigma, \mu + 1.96 \sigma)
+    \end{equation*}
+  \itemXS
   \end{itemize}
 \end{frame}
 

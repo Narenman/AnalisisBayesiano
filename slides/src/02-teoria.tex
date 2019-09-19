@@ -37,13 +37,13 @@
   \vskip-8mm
   \begin{figure}
     \centering
-    \begin{tikzpicture}[every node/.style={fill=Mulberry!50!white, shape=rectangle, minimum width=0.4\textwidth, minimum height=0.3\textheight, align=center, inner sep=4mm, node distance=4mm]}]
+    \begin{tikzpicture}[every node/.style={fill=u18fred, shape=rectangle, minimum width=0.4\textwidth, minimum height=0.3\textheight, align=center, inner sep=4mm, node distance=4mm]}]
       \node (resultados) {\textbf{Resultados}\\$\Omega$};
       \node [right=of resultados] (variables) {\textbf{Variables aleatorias}\\$X \colon \Omega \to C$};
       \node [below=of resultados] (eventos) {\textbf{Eventos}\\$\mathcal{F}$};
       \node [right=of eventos] (probabilidades) {\textbf{Probabilidades}\\$P \colon \mathcal{F} \to [0, 1]$};
       \begin{scope}[on background layer]
-        \node [fill=NavyBlue!50!white, fit={(resultados) (eventos) (variables) (probabilidades)}, label={[label distance=-8mm]above:\textbf{Experimento}}] (experimento) {};
+        \node [fill=u18fblue, fit={(resultados) (eventos) (variables) (probabilidades)}, label={[label distance=-8mm]above:\textbf{Experimento}}] (experimento) {};
       \end{scope}
     \end{tikzpicture}
   \end{figure}
@@ -240,10 +240,10 @@
           \foreach \x in {1,...,6}{%
             \foreach \y in {1,...,6}{%
               \pgfmathsetmacro\z{int(\x+\y)}%
-              \pgfmathsetmacro\ncola{and(\x <= 4, \y <= 4) ? "red": "white"}%
-              \pgfmathsetmacro\ncolb{or(\x < 3, \x > 5) ? "red": "white"}%
-              \pgfmathsetmacro\ncolc{\z >= 7 ? "red": "white"}%
-              \pgfmathsetmacro\ncold{and(\z >=7, \y >= 3) ? "red": "white"}%
+              \pgfmathsetmacro\ncola{and(\x <= 4, \y <= 4) ? "u18fred": "white"}%
+              \pgfmathsetmacro\ncolb{or(\x < 3, \x > 5) ? "u18fred": "white"}%
+              \pgfmathsetmacro\ncolc{\z >= 7 ? "u18fred": "white"}%
+              \pgfmathsetmacro\ncold{and(\z >=7, \y >= 3) ? "u18fred": "white"}%
               \draw [onslide=<1>{fill=\ncola}, onslide=<2>{fill=\ncolb}, onslide=<3>{fill=\ncolc}, , onslide=<4>{fill=\ncold}] ($ -\x*(0,\szy) + \y*(\szx,0) $) rectangle+(\szx,\szy);%
               \node at ($ -\x*(0,\szy) + \y*(\szx,0) + 0.5*(\szx, \szy)$) {\z};%
             }%
@@ -310,7 +310,7 @@
           \foreach \x in {1,...,6}{%
             \foreach \y in {1,...,6}{%
               \pgfmathsetmacro\z{int(\x+\y)}%
-              \pgfmathsetmacro\ncol{\z >= 7 ? "red": "white"}%
+              \pgfmathsetmacro\ncol{\z >= 7 ? "u18fred": "white"}%
               \draw [fill=\ncol] ($ -\x*(0,\szy) + \y*(\szx,0) $) rectangle+(\szx,\szy);%
               \node at ($ -\x*(0,\szy) + \y*(\szx,0) + 0.5*(\szx, \szy)$) {\z};%
             }%

@@ -34,6 +34,11 @@ calibración de parámetros y modelamiento inverso}
 \end{frame}
 %
 \begin{frame}
+  \frametitle{Introducción}
+  \textbf{Participantes}
+\end{frame}
+%
+\begin{frame}
   \frametitle{Modelamiento en ciencia e ingeniería}
 
   \begin{itemize}
@@ -47,12 +52,12 @@ calibración de parámetros y modelamiento inverso}
   \begin{figure}[h]
     \centering
     \begin{tikzpicture}[every node/.style={shape=rectangle, color=white, font=\bfseries, minimum width=2.8cm, align=center, inner sep=4mm}, every path/.style={thick, shorten >= 1pt, shorten <= 1pt}]
-      \node [fill=Mulberry!50!white] (x) {Variables\\explanatorias\\$x$};%
-      \node [fill=Mulberry!50!white, right=of x] (modelo) {Modelo};%
-      \node [fill=Mulberry!50!white, below=of modelo] (pars) {Parámetros\\$\theta$};%
-      \node [fill=Mulberry!50!white, right=of modelo] (y) {Variables\\dependientes\\$y$};%
-      \node [fill=NavyBlue!50!white, above=of modelo] (exp) {Experimentos};%
-      \node [fill=NavyBlue!50!white, right=of exp] (datos) {Datos};%
+      \node [fill=u18fred] (x) {Variables\\explanatorias\\$x$};%
+      \node [fill=u18fred, right=of x] (modelo) {Modelo};%
+      \node [fill=u18fred, below=of modelo] (pars) {Parámetros\\$\theta$};%
+      \node [fill=u18fred, right=of modelo] (y) {Variables\\dependientes\\$y$};%
+      \node [fill=u18fblue, above=of modelo] (exp) {Experimentos};%
+      \node [fill=u18fblue, right=of exp] (datos) {Datos};%
       \draw [->] (y.north) |- ($(y.north) + (0, 0.3cm)$) -| ($(exp.south) + (0.5cm, 0)$);%
       \draw [->] (x.north) |- ($(x.north) + (0, 0.3cm)$) -| ($(exp.south) - (0.5cm, 0)$);%
       \draw [->] (datos.east) -| ($(datos.east) + (0.5cm, 0cm)$) |- (pars.east);%
@@ -115,18 +120,18 @@ calibración de parámetros y modelamiento inverso}
 \end{frame}
 %
 \begin{frame}
-  \frametitle{Programa}
+  \frametitle{Contenido}
   \begin{tcolorbox}[title=Fundamentos]
     \begin{itemize}
-    \item \emph{Lunes}: Teoría de la probabilidad y teorema de Bayes
-    \item \emph{Martes}: Modelamiento y programación probabilística
+    \item Teoría de la probabilidad
+    \item Teorema de Bayes
     \end{itemize}
   \end{tcolorbox}
   \begin{tcolorbox}[title=Regresión]
     \begin{itemize}
-    \item \emph{Martes}: Modelos lineales
-    \item \emph{Miércoles}: Modelos no lineales
-    \item \emph{Jueves}: Modelos jierárquicos
+    \item Modelos lineales
+    \item Modelos no lineales
+    \item Modelos jierárquicos
     \end{itemize}
   \end{tcolorbox}
 \end{frame}
@@ -134,8 +139,12 @@ calibración de parámetros y modelamiento inverso}
 \begin{frame}
   \frametitle{Metodología}
   \begin{itemize}
-  \item Vamos a programar? \textbf{No}, pero...
-  \item ...vamos a utilizar herrramientas de programación probabilística para explorar conceptos
+  \item Matemáticas y código
+    \begin{itemize}
+    \item Vamos a programar? \textbf{No}
+    \item Vamos a calcular integrales? \textbf{No}
+    \end{itemize}
+  \item Vamos a utilizar herrramientas de programación probabilística para explorar conceptos
   \end{itemize}
   \textbf{Herramientas de programación basadas en texto plano}
   \begin{itemize}
@@ -215,7 +224,7 @@ python codigo.py ...
   \begin{itemize}
   \item Cronograma
     \begin{itemize}
-    \item Dos mitades de 1h 20m
+    \item Dos mitades de 50m--1h 20m
     \item Pausa de 20m entre mitades (café y aromáticas afuera)
     \end{itemize}
   \item Código, cuadernos y presentaciones disponibles en \textsf{GitHub}\\
