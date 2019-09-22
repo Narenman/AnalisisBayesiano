@@ -530,7 +530,45 @@
     \pause
   \item Entonces podemos asumir que $\Theta \sim U(0, 1)$
   \end{itemize}
-
+  \pause%
+  \vskip1em
+  Acá utilizamos el concepto de probabilidad como medida de \textbf{(in)certidumbre}
+  \begin{itemize}
+  \item La suposición $\Theta \sim U(0, 1)$ codifica nuestro nivel de certidumbre acerca del valor de de $\Theta$
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Lanzar una moneda cargada}
+  \begin{equation*}
+    p_{\Theta \mid Y}(\theta \mid y) = \frac{P_{Y \mid \Theta}(y \mid \theta) p_{\Theta}(\theta)}{\int p_{Y \mid \Theta}(y \mid \theta) p_{\Theta}(\theta) \, \symrm{d} \theta}
+  \end{equation*}
+  \begin{itemize}
+  \item Tenemos $p_{Y \mid \Theta}(y \mid \theta) = \operatorname{Binomial}(y \mid \theta)$
+  \item Tenemos $p_{\Theta}(\theta) = U(\theta \mid 0, 1)$
+  \item Listo! Podemos evaluar la integral del denominador y ya...
+  \item ...pero no vamos a hacer eso
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Cálculos Bayesianos}
+  \begin{equation*}
+    p_{\Theta \mid Y}(\theta \mid y) = \frac{P_{Y \mid \Theta}(y \mid \theta) p_{\Theta}(\theta)}{\int p_{Y \mid \Theta}(y \mid \theta) p_{\Theta}(\theta) \, \symrm{d} \theta}
+  \end{equation*}
+  \begin{itemize}
+  \item Calcular la integral en el denominador (\emph{función de partición}) es sencillo cuando son pocos parámetros pero es muy costoso computacionalmente cuando son muchos parámetros
+  \item Utilizaremos una familia de algoritmos, \textbf{Monte Carlo de cadenas de Markov (MCMC)} para generar directamente muestras de la distribución $p_{\Theta \mid Y}(\theta \mid y)$ sin tener qué calcular la integral
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Monte Carlo de cadenas de Markov (MCMC)}
+  \begin{itemize}
+  \item Se generan una o varias ``cadenas'' de números
+  \item En el límite de convergencia, las cadenas corresponden a conjuntos de muestras de la distribución condicional $p_{\Theta \mid Y}(\theta \mid y)$
+  \item Es el algoritmo de cálculos Bayesianos más costoso y más general
+  \end{itemize}
 \end{frame}
 
 \end{document}
