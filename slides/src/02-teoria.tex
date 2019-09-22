@@ -3,7 +3,7 @@
 \usetheme[presnum=02]{u18fest}
 \usepackage{ifthen}
 \usepackage{pgfplotstable}
-\usetikzlibrary{positioning,fit,backgrounds,calc,math}
+\usetikzlibrary{positioning,fit,backgrounds,calc,math,shapes}
 
 \subtitle{Marco Bayesiano para el análisis de datos,\\
   calibración de parámetros y modelamiento inverso}
@@ -29,6 +29,8 @@
     En cambio, es útil para representar conceptos
   \item Nuestro objetivo es \emph{modelar} información de manera consistente y fácil de interpretar
   \item El modelador, ud., juega un rol fundamental
+  \item El modelador toma decisiones subjetivas
+  \item La validez de éstas suposiciones está en la utilidad de los resultados
   \end{itemize}
 \end{frame}
 %
@@ -54,7 +56,7 @@
   \begin{tcolorbox}
     \textbf{Resultado}: \emph{Posible resultado de un experimento aleatorio}
     \tcblower
-    $\Omega$: \emph{Espacio} de resultados
+    \textbf{Espacio de resultados} $\Omega$: ``Conjunto'' de resultados
   \end{tcolorbox}
   \emph{Ejemplos}
   \begin{itemize}
@@ -103,6 +105,31 @@
       f \colon A \to B
     \end{equation*}
     define la función $f(\cdot)$ que asigna un elemento de $B$ a un elemento $A$.  E.g., $f(a) = b$ indica que la función asocia $b \in B$ a $a \in A$
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        [every node/.style={on grid, node distance=5mm}, every fit/.style={draw,fill=u18fblue,ellipse,text width=25pt}, >=latex]
+        
+        \node (a) {$a$};%
+        \node [below=of a] (b) {$b$};%
+        \node [below=of b] (c) {$c$};
+        \node [above=8mm of a, anchor=south] {$A$};
+
+        \node [inner sep=0pt,right=3cm of a] (x) {$f(a)$};%
+        \node [below=of x] (y) {$f(b)$};%
+        \node [above=8mm of x, anchor=south] {$B$};%
+
+        \draw[->,shorten >= 2pt] (a) -- (x);%
+        \draw[->,shorten >= 2pt] (b) -- (y);%
+        \draw[->,shorten >= 2pt] (c) -- (y);%
+
+        \begin{pgfonlayer}{background}
+          \node[fit= (a) (c) ] {};%
+          \node[fit= (x) (y) ] {};
+        \end{pgfonlayer}
+        
+      \end{tikzpicture}
+    \end{figure}
   \end{definicion*}
 \end{frame}
 %
@@ -183,7 +210,7 @@
   \begin{tcolorbox}
     \textbf{Evento}: \emph{Subconjunto de resultados del experimento}
     \tcblower
-    $\mathcal{F}$: \emph{Campo} de eventos
+    \textbf{Campo de eventos} $\mathcal{F}$: ``Conjunto'' de eventos
   \end{tcolorbox}
   \begin{definicion*}{Conjunto-poder}{}
     Para $\Omega$ \emph{contable}, una selección común de campo de eventos es el conjunto-poder $2^{\Omega}$, que contiene los siguientes eventos:
@@ -332,7 +359,7 @@
   \frametitle{Probabilidades}
   \begin{itemize}
   \item Hasta ahora probabilidades se han definido de manera enteramente \emph{abstracta}
-  \item Probabilidad es una \emph{medida}: ``Área'' asociada a una región del espacio de resultados (Evento)
+  \item Probabilidad es una \emph{medida}: ``Área'' o ``masa'' asociada a una región (evento) del espacio de resultados
   \item Qué significa que un evento tenga probabilidad de $58 \%$?
   \end{itemize}
 \end{frame}
@@ -351,19 +378,27 @@
 %
 \begin{frame}
   \frametitle{Eventos asociados a variables aleatorias contínuas}
-  Considérese la variable aleatoria
+  Considérese la variable aleatoria contínua
   \begin{equation*}
-    A \colon \Omega \to \mathbb{R}
+    A \colon \Omega \to C
   \end{equation*}
+  \pause
   Qué eventos podemos definir en términos de los valores de $A$?
-  \vskip1em\pause
-  Para cierto valor $a$...
-  \begin{itemize}
-  \item $P(A = a)$? \pause\\\alert<3>{En general, $A = a$ es un evento con probabilidad trivial $(= 0)$}\pause
-  \item $P(A \leq a)$, $P(A > a)$, $P(a \leq A \leq b)$, etc.
-    \pause
-  \item Revisaremos éste aspecto luego
-  \end{itemize}
+  \vskip1em
+  \begin{overprint}
+    \onslide<1>
+    \begin{itemize}
+    \item Para variables aleatorias contínuas, en vez del conjunto-poder, utilizaremos como campo de eventos el \emph{álgebra de Borel} $B(C)$
+    \item ...que contiene todos los subconjuntos abiertos de $C$
+    \end{itemize}
+    \onslide<2->
+    Para $C \equiv \mathbb{R}$ y cierto valor $a \in C$...
+    \begin{itemize}
+    \item $P(A \leq a)$, $P(A > a)$, $P(a \leq A \leq b)$, etc.
+    \item $P(A = a)$?\\En general, $A = a$ es un evento con probabilidad trivial $(= 0)$
+    \item Revisaremos éste aspecto luego
+    \end{itemize}
+  \end{overprint}
 \end{frame}
 
 \end{document}
