@@ -8,6 +8,7 @@
 \RequirePackage{polyglossia}
 \RequirePackage{tcolorbox}
 \RequirePackage{unicode-math}
+\RequirePackage{mathtools}
 
 \setmainfont[Ligatures=TeX]{IBM Plex Sans}
 \setsansfont[Ligatures=TeX]{IBM Plex Sans}
@@ -129,5 +130,16 @@
 }
 
 \setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{python frame}
+{
+  \begin{centering}
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw [decorate, decoration=snake, very thick] ($(current page.center)-(2cm,0)$) -- ($(current page.center)+(2cm,0)$);
+    \end{tikzpicture}
+  \end{centering}
+}
+
+\def\pythonframe{\usebeamertemplate*{python frame}}
 
 \mode<all>

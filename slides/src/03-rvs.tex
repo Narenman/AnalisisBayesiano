@@ -9,7 +9,7 @@
 \date{U18 Fest}
 
 \usepackage{pgfplots}
-\usetikzlibrary{positioning,calc}
+\usetikzlibrary{positioning,calc,decorations.pathmorphing}
 \usepgfplotslibrary{fillbetween}
 
 \tikzset{%
@@ -80,9 +80,9 @@
     \begin{equation*}
       X \colon \Omega \to C
     \end{equation*}
-  \item \textbf{pmf} $p : C \to [0, 1]$ definida como
+  \item \textbf{pmf} $p_X : C \to [0, 1]$ definida como
     \begin{equation*}
-      p(c) = P(X = c) = P \left ( \left \{ \omega \in \Omega \colon X(\omega) = c \right \} \right )
+      p_X(c) = P(X = c) = P \left ( \left \{ \omega \in \Omega \colon X(\omega) = c \right \} \right )
     \end{equation*}
   \end{itemize}
 \end{frame}
@@ -118,17 +118,17 @@
       \begin{overprint}
         \onslide<1>
         \begin{itemize}
-        \item $p(1) = 0$
-        \item $p(2) = 1 / 36$
-        \item $p(3) = 2 / 36$
-        \item $p(4) = 3 / 36$\\
+        \item $p_X(1) = 0$
+        \item $p_X(2) = 1 / 36$
+        \item $p_X(3) = 2 / 36$
+        \item $p_X(4) = 3 / 36$\\
           $\dots$
         \end{itemize}
         \onslide<2->
         \begin{figure}
           \centering
           \begin{tikzpicture}
-            \begin{axis}[ymin=0, height=5cm, width=6cm, ylabel={pmf $[1 / 36]$}, ylabel near ticks]
+            \begin{axis}[ymin=0, height=5cm, width=6cm, ylabel={$36 p_X(x)$}, xlabel={$x$}, ylabel near ticks]
               \addplot+ [ycomb] coordinates {%
                 (1, 0) (2, 1) (3, 2) (4, 3) (5, 4) (6, 5) (7, 6) (8, 5) (9, 4) (10, 3) (11, 2) (12, 1) (13, 0)%
               };
@@ -145,24 +145,91 @@
   \begin{itemize}
   \item Para la variable aleatoria discreta $X \colon \Omega \to C$, se puede utilizar la pmf para calcular la probabilidad del evento del valor de $X$ estar en cualquier subconjunto $B \subseteq C$:
     \begin{equation*}
-      P(X \in B) = \sum_{b \in B} p(b)
+      P(X \in B) = \sum_{b \in B} p_X(b)
     \end{equation*}
     \pause
   \item Como consecuencia,
     \begin{equation*}
-      \sum_{b \in C} p(b) = 1
+      \sum_{b \in C} p_X(b) = 1
     \end{equation*}
   \item \textbf{Ejemplo}: Lanzar dos dados
     \begin{equation*}
-      p(1) + p(2) + p(3) + \dots + p(11) + p(12) + \dots = 1
+      p_X(1) + p_X(2) + \dots + p_X(11) + p_X(12) = 1
     \end{equation*}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Función de densidad acumulada (cdf)}
+  \vskip1em
+  \begin{itemize}
+  \item \textbf{Variable aleatoria}
+    \begin{equation*}
+      X \colon \Omega \to C
+    \end{equation*}
+  \item \textbf{cdf} $F_X(c) \coloneqq P(X \leq c) \in [0, 1]$
+  \item \textbf{Ejemplo}: Lanzar dos dados%
+    \vskip1em
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[ymin=0, height=5cm, width=6cm, ylabel={$F_X(x)$}, xlabel={$x$}, ylabel near ticks]
+          \addplot+ [ycomb] coordinates {%
+            (1, 0) (2, 1/36) (3, 3/36) (4, 6/36) (5, 10/36) (6, 15/36) (7, 21/36) (8, 26/36) (9, 30/36) (10, 33/36) (11, 35/36) (12, 1) (13, 1)%
+          };
+        \end{axis}
+      \end{tikzpicture}
+    \end{figure}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Función cuantil}
+  Para la variable aleatoria $X \colon \Omega \to C$,
+  \begin{equation*}
+    Q(p) \coloneqq \inf \{ x \in C\colon p \leq F_X(x) \}
+  \end{equation*}
+  \begin{itemize}
+  \item $Q(p)$ determina el menor valor $x$ de $X$ para el cual $P(X \leq x) \geq p$
+  \item \textbf{Ejemplo}: Lanzar dos dados
+    \vskip1em
+    \begin{table}
+      \centering
+      \begin{tabular}{cccccc}
+        $p$ & 0.1 & 0.2 & 0.5 & 0.7 & 0.9\\
+        \hline
+        $Q(p)$ & 4 & 5 & 7 & 8 & 10
+      \end{tabular}
+    \end{table}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Estadísticos}
+  \begin{itemize}
+  \item \textbf{Media/Esperanza/Valor esperado}:
+    \begin{equation*}
+      \mu \equiv \mathbb{E}[X] \coloneqq \sum_{x \in C} x p_X(x)
+    \end{equation*}
+    El promedio de $n$ muestras de la variable aleatoria en el límite $n \to \infty$, i.e.,
+    \begin{equation*}
+      \frac{x_1 + x_2 + \dots + x_n}{n} \to \mathbb{E}[X]
+    \end{equation*}
+  \item \textbf{Varianza}:
+    \begin{equation*}
+      \sigma^2 \equiv \mathbb{E} \left [ \left (X - \mu \right )^2 \right ] = \sum_{x \in C} (x - \mu)^2 p_X(x)
+    \end{equation*}
+    Medida de desviación de la distribución alrededor de la media
+  \item \textbf{Desviación estándar}: $\sigma = \sqrt{\sigma^2}$
+  \item \textbf{Mediana}: $Q(0.5)$
+  \item \textbf{Modo}: Valor mas probable, i.e, $\operatorname{arg\,max} p_X(x)$
   \end{itemize}
 \end{frame}
 %
 \begin{frame}
   \frametitle{Muestrear variables aleatorias}
   \begin{itemize}
-  \item Vamos a usar \emph{generadores de números pseudo-aleatorios} (PRNGs)
+  \item Podemos simular variables aleatorias utilizando \emph{generadores de números pseudo-aleatorios} (PRNGs)
   \item PRNGs \textbf{no} generan números realmente aleatorios...
   \item ...pero generan una secuencia de números con propiedades aproximadamente iguales a las propiedades de secuencias de números aleatorios
   \item La secuencia de un PRNG es determinada por un valor inicial llamdo \emph{semilla} (seed)
@@ -171,13 +238,17 @@
 \end{frame}
 %
 \begin{frame}
-  \frametitle{Función de densidad acumulada (cdf)}
+  \pythonframe
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Variables aleatorias contínuas}
   \begin{itemize}
   \item \textbf{Variable aleatoria}
     \begin{equation*}
       X \colon \Omega \to C
     \end{equation*}
-  \item \textbf{cdf} $F(c) = P(X \leq c) \in [0, 1]$
+  \item \textbf{cdf} $F_X(c) = P(X \leq c) \in [0, 1]$
     \pause
   \item \textbf{Ejemplo}: Variable aleatoria normal estándar
     \vskip1em
@@ -195,7 +266,7 @@
           extra y tick style={%
             major tick length=2.5em%
           }, %
-          extra x ticks={0.4}, extra x tick labels={$0.4$}, extra y ticks={\myextraytick}, extra y tick labels={$F(0.4)$}]
+          extra x ticks={0.4}, extra x tick labels={$0.4$}, extra y ticks={\myextraytick}, extra y tick labels={$F_X(0.4)$}]
           \addplot [samples=150, no markers, blue, thick] {normcdf(x, 0, 1)};%
           \addplot[mark=*,color=blue] coordinates {(0.4, {normcdf(0.4, 0, 1)})};%
           \draw [dashed] (axis cs: 0.4, 0.0) |- (axis cs: -3, {normcdf(0.4, 0, 1)});%
@@ -222,7 +293,7 @@
         extra y tick style={%
           major tick length=2.5em%
         }, %
-        extra x ticks={0.4}, extra x tick labels={$0.4$}, extra y ticks={\myextrayticka, \myextraytickb}, extra y tick labels={$F(0.4)$, $F(2)$}]
+        extra x ticks={0.4}, extra x tick labels={$0.4$}, extra y ticks={\myextrayticka, \myextraytickb}, extra y tick labels={$F_X(0.4)$, $F_X(2)$}]
         \addplot [samples=150, no markers, blue, thick] {normcdf(x, 0, 1)};%
         \addplot[mark=*,color=blue] coordinates {(0.4, {normcdf(0.4, 0, 1)})};%
         \draw [dashed] (axis cs: 0.4, 0.0) |- (axis cs: -3, {normcdf(0.4, 0, 1)});%
@@ -233,27 +304,17 @@
   \end{figure}
   La cdf puede utilizarse para evaluar la probabilidad de varios escenarios:
   \begin{itemize}
-  \item $P(X > 2) = 1 - P(X \leq 2) = 1 - F(2)$
-  \item $P(0.4 \leq X \leq 2) = P(X \leq 2) - P(X \leq 0.4) = F(2) - F(0.4)$
-  \end{itemize}
-\end{frame}
-%
-\begin{frame}
-  \frametitle{Variables aleatorias contínuas}
-  \begin{itemize}
-  \item La cdf no es la equivalente de la pmf para variables aleatorias contínuas
-    \begin{itemize}
-    \item La pmf asigna probabilidades a valores individuales
-    \item La cdf asigna probabilidades a \emph{intervalos} de valores
-    \end{itemize}
-  \item Para generalizar la pmf debemos utilizar el concepto de \emph{densidad}
+  \item $P(X > 2) = 1 - P(X \leq 2) = 1 - F_X(2)$
+  \item $P(0.4 \leq X \leq 2) = P(X \leq 2) - P(X \leq 0.4) = F_X(2) - F_X(0.4)$
   \end{itemize}
 \end{frame}
 %
 \begin{frame}
   \frametitle{Función de densidad de probabilidad (pdf)}
-  La pdf (o \emph{densidad}) $p(a)$ cuantifica la cantidad de probabilidad en un intervalo alrededor de $a$ relativa a la longitud del intervalo%
-  \vskip1em
+  \begin{itemize}
+  \item Para generalizar la pmf a variables aleatorias contínuas, hay que introducir el concepto de \emph{densidad}
+  \item La pdf (o \emph{densidad} o \emph{distribución}) $p_X(a)$ cuantifica la cantidad de probabilidad en un intervalo alrededor de $a$ relativa a la longitud del intervalo
+  \end{itemize}
   \emph{Ejemplo}: Variable aleatoria normal estándar
   \begin{overprint}
     \onslide<1>
@@ -309,45 +370,43 @@
 %
 \begin{frame}
   \frametitle{Función de densidad de probabilidad (pdf)}
+  \begin{itemize}
+  \item Si entendemos la probabilidad como la ``masa'' de una región del espacio de resultados (evento), la distribución $p_X(\cdot)$ indica la densidad en cada punto de esa región
+  \item Para variables aleatorias \emph{discretas},
+    \begin{equation*}
+      P(X \in B) = \sum_{b \in B } p_X(b)
+    \end{equation*}
+  \item Para variables aleatorias \emph{contínuas},
+    \begin{equation*}
+      P(X \in B) = \int_B p_X(x) \, \symrm{d} x
+    \end{equation*}
+  \item La integral $\int (\cdot) \symrm{d} x$ generaliza la suma $\sum$ a variables aleatorias contínuas
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Función de densidad de probabilidad (pdf)}
 
   \begin{itemize}
   \item Para la variable aleatoria $X \colon \Omega \to C$, la pdf y la cdf están conectadas a través de la relación
     \begin{equation*}
-      F(a) = P(X \leq a) = \int^a_{-\infty} p(x) \, \symrm{d} x
+      F_X(a) = P(X \leq a) = \int^a_{-\infty} p_X(x) \, \symrm{d} x
     \end{equation*}
-    Qué quiere decir ésto?\pause
-  \item Si quiero calcular la probabilidad del evento ${\infty \leq X \leq a}$, basta con ``integrar'' la densidad sobre el intervalo $(-\infty, a]$
-  \item Podemos generalizar ésta relación para calcular la probabilidad del evento del valor de $X$ estar en cualquier subconjunto $B \subseteq C$:
+  \item Como consecuencia de la definición,
     \begin{equation*}
-      P(X \in B) = \int_B p(x) \, \symrm{d} x
-    \end{equation*}
-  \item Como consecuencia,
-    \begin{equation*}
-      P(X \in C) = \int_C p(x) \, \symrm{d} x = 1
+      P(X \in C) = \int_C p_X(x) \, \symrm{d} x = 1
     \end{equation*}
   \end{itemize}
 \end{frame}
 %
 \begin{frame}
-  \frametitle{Función de densidad de probabilidad (pdf)}
-  \begin{itemize}
-  \item Para variables aleatorias \emph{discretas},
-    \begin{equation*}
-      P(X \in B) = \sum_{b \in B } p(b)
-    \end{equation*}
-  \item Para variables aleatorias \emph{contínuas},
-    \begin{equation*}
-      P(X \in B) = \int_B p(x) \, \symrm{d} x
-    \end{equation*}
-  \item La pdf generaliza la pmf a variables aleatorias contínuas
-  \item La integral $\int$ generaliza la suma $\sum$ a variables aleatorias contínuas
-  \end{itemize}
+  \pythonframe
 \end{frame}
 %
 \begin{frame}
-  \frametitle{Función de densidad de probabilidad (pdf)}
+  \frametitle{Área bajo la curva}
   \begin{itemize}
-  \item La integral $\int_B p(x) \, \symrm{d} x$ puede interpretarse como el área bajo la curva $y = p(x)$ en el intervalo $B$
+  \item La integral $\int_B p_X(x) \, \symrm{d} x$ puede interpretarse como el área bajo la curva $y = p(x)$ en el intervalo $B$
   \item E.g., para el intervalo $B = (a, b)$,
     \vskip1em
     \begin{figure}
@@ -376,8 +435,8 @@
         \end{axis}
       \end{tikzpicture}
     \end{figure}
-  \item Dado que $\int_C p(x) \, \mathrm{d} x = 1$, eso indica que el área bajo la pdf es $1$
-  \item La cdf $F(a)$ corresponde al área bajo la curva entre $-\infty$ y $a$
+  \item Dado que $\int_C p_X(x) \, \mathrm{d} x = 1$, eso indica que el área bajo la pdf es $1$
+  \item La cdf $F_X(a)$ corresponde al área bajo la curva entre $-\infty$ y $a$
   \end{itemize}
 \end{frame}
 %
@@ -387,7 +446,7 @@
   \item Variable aleatoria normal estándar $X \sim \mathcal{N}(0, 1)$
   \item \textbf{Intervalo de mayor densidad (HDI)}: Para un valor $\alpha \in [0, 1]$,  hay un intervalo $B = (a, b)$ para el cual
     \begin{itemize}
-    \item $p(a) = p(b)$
+    \item $p_X(a) = p_X(b)$
     \item $P(X \in B) = 1 - \alpha$
     \end{itemize}
   \item Para $\alpha = 0.2$:
@@ -464,5 +523,5 @@
 %%% Local Variables:
 %%% TeX-master: t
 %%% TeX-engine: luatex
-%%% ispell-local-dictionary: "es_CO"
+%%% ispell-local-dictionary: "spanish"
 %%% End:
