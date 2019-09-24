@@ -1,0 +1,89 @@
+\documentclass[xcolor=dvipsnames,10pt]{beamer}
+
+\usetheme[presnum=05]{u18fest}
+
+\subtitle{Marco Bayesiano para el análisis de datos,\\
+  calibración de parámetros y modelamiento inverso}
+\title{Modelamiento probabilístico}%
+\institute{Universidad Industrial de Santander}%
+\date{U18 Fest}
+
+\begin{document}
+
+\begin{frame}[noframenumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Teorema de Bayes}
+  Si tenemos observaciones $y$ de un observable $Y$ y un modelo parametrizado por $\Theta$, podemos calcular la distribución de los parámetros dadas las observaciones usando:
+  \begin{equation*}
+    p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{p(y)} = \frac{p(y \mid \theta) p(\theta)}{\int p(y \mid \theta) p(\theta) \, \symrm{d} \theta}
+  \end{equation*}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Nomenclatura}
+  \begin{equation*}
+    p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{p(y)} = \frac{p(y \mid \theta) p(\theta)}{\int p(y \mid \theta) p(\theta) \, \symrm{d} \theta}
+  \end{equation*}
+  \vskip1em
+  \begin{overprint}
+    \onslide<1>
+    \begin{itemize}
+      \setlength{\itemsep}{5mm}
+    \item $p(y \mid \theta)$: \textbf{Verosimilitud}\\
+      Indica qué valores del observable $Y$ son más o menos posibles dado el valor específico $\Theta = \theta$ de los parámetros.
+      La verosimilitud indica qué tan posible es observar las (uh) observaciones dado $\theta$
+    \item $p(\theta)$: \textbf{(Distribución) Anterior}\\
+      Codifica la información disponible o suposiciones acerca de la distribución de probabibilidad de $\Theta$, i.e, indica qué valores de $\Theta$ son más o menos probables de acuerdo a la información \emph{a priori}
+    \end{itemize}
+    \onslide<2>
+    \begin{itemize}
+      \setlength{\itemsep}{5mm}
+    \item $p(\theta \mid y)$: \textbf{(Distribución) Posterior}\\
+      pdf de $\Theta$ dadas las observaciones, i.e., indica qué valores de $\Theta$ son más o menos probables de acuerdo a las observaciones y la información \emph{a priori}
+    \item $p(y) = \int p(y \mid \theta) p(\theta) \, \symrm{d} \theta$: \textbf{Verosimilitud marginal}\\
+      Indica qué valores del observable $Y$ son más o menos posibles dada la información disponible \emph{a priori} acerca de los parámetros del modelo
+    \end{itemize}
+  \end{overprint}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Nomenclatura}
+  \begin{itemize}
+  \item Para calcular la distribución posterior sólo hace especificar las verosimilitud $p(y \mid \theta)$ y la distribución anterior, i.e, la distribución conjunta
+    \begin{equation*}
+      p(y, \theta) = p(y \mid \theta) p(\theta)
+    \end{equation*}
+  \item Ésta distribución conjunta se conoce como el \emph{modelo probabilístico}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Tareas de regresión}
+  \begin{itemize}
+  \item Queremos analizar la dependencia de un observable $Y$ en una variable explanatoria $X$ utilizando un modelo parametrizado por $\Theta$ de la forma
+  \begin{equation*}
+    Y = f(X \mid \theta)
+  \end{equation*}
+\item Dadas las observaciones $(x, y)$, podemos calcular la distribución de los parámetros:
+  \end{itemize}
+  \begin{equation*}
+    p(\theta \mid y, x) = \frac{p(y \mid x, \theta) p(\theta)}{p(y \mid x)} = \frac{p(y \mid x, \theta) p(\theta)}{\int p(y \mid x, \theta) p(\theta) \, \symrm{d} \theta}
+  \end{equation*}
+  donde
+  \begin{itemize}
+  \item $p(y \mid x, \theta)$: Verosimilitud
+  \item $p(\theta)$: Anterior
+  \item $p(\theta \mid y, x)$: Posterior
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+% Local Variables:
+% TeX-master: t
+% TeX-engine: luatex
+% ispell-local-dictionary: "spanish"
+% End:

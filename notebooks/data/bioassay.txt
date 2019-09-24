@@ -1,0 +1,13 @@
+Data from Racine, A., Grieve, A. P., Fluhler, H., and Smith, A. F. M. (1986).
+Bayesian methods in practice: experiences in the pharmaceutical industry (with discussion).
+Applied Statistics 35, 93–150.
+
+dose: Dose (log g/ml)
+n:    Number of animals
+y:    Number of deaths
+
+dose,n,y
+-0.86,5,0
+-0.30,5,1
+-0.05,5,3
+0.73,5,5
