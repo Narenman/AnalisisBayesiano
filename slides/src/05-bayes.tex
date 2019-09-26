@@ -8,8 +8,13 @@
 \institute{Universidad Industrial de Santander}%
 \date{U18 Fest}
 
-\usepackage{pgfplots}
-\usetikzlibrary{positioning}
+\usepackage{pgfplots}%
+\usetikzlibrary{positioning}%
+\def\basefunc{%
+  gamma(.5*(\n+1))/(sqrt(\n*pi)*gamma(.5*\n))*((1+x^2/\n)^(-.5*(\n+1)))%
+}
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty}
 
 \begin{document}
 
@@ -88,6 +93,14 @@
 \end{frame}
 %
 \begin{frame}
+  \frametitle{Evaluación de modelos}
+\end{frame}
+%
+\begin{frame}
+  \pythonframe
+\end{frame}
+%
+\begin{frame}
   \frametitle{Regresión lineal ordinaria}
   \begin{itemize}
   \item Tenemos un observable $Y$, que se asume contínuo y $k$ variables explanatorias $x = (x_1, x_2, \dots, x_3)$
@@ -108,8 +121,8 @@
     \end{equation*}
   \item Modelo lineal para la esperanza de las observaciones
     \begin{align*}
-      \mathbb{E}(y_i \mid X, \beta) &= \alpha + x_{i1} \beta_1 + x_{i2} \beta_2 + \dots \beta_k x_{ik}\\
-      \mathbb{E}(y \mid X, \beta) &= \alpha + X \beta
+      \mathbb{E}(y_i \mid X, \theta) &= \alpha + x_{i1} \beta_1 + x_{i2} \beta_2 + \dots x_{ik} \beta_k \\
+      \mathbb{E}(y \mid X, \theta) &= \alpha + X \beta
     \end{align*}
   \end{itemize}
 \end{frame}
@@ -119,7 +132,7 @@
   \begin{itemize}
   \item Para modelar las observaciones, asumimos que cada observación es independiente, y modelada como una variable aleatoria normal con la esperanza dada por el modelo lineal y una cierta varianza
     \begin{equation*}
-      p(y_i \mid X, \beta) = \mathcal{N}(y \mid \alpha + X_{i \cdot} \beta, \sigma)
+      p(y_i \mid X, \theta) = \mathcal{N}(y \mid \alpha + X_{i \cdot} \beta, \sigma), \quad \theta = \{ \alpha, \beta, \sigma \}
     \end{equation*}
     \begin{figure}
       \centering
@@ -144,9 +157,59 @@
     \end{figure}
   \item La distribución conjunta de las observaciones es
     \begin{equation*}
-      p(y \mid X, \beta) = \prod^n_{i = 1} p(y_i \mid X, \beta) = \mathcal{N}(y \mid \alpha + X \beta, \sigma^2 I)
+      p(y \mid X, \theta) = \prod^n_{i = 1} p(y_i \mid X, \theta) = \mathcal{N}(y \mid \alpha + X \beta, \sigma^2 I)
     \end{equation*}
   \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Robustez contra valores extremos}
+  \begin{itemize}
+  \item La distribución normal tiene colas ``cortas''.
+    Por lo tanto, observaciones lejos del predictor $\alpha + X \beta$ para cierto valor de $\theta$ se consideran muy poco probables
+  \item Éstas observaciones ``arrastran'' el estimador hacia ellas
+  \item Para robustecer la inferencia contra valores extremos es necesario utilizar una verosimilitud con colas más largas
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Robustez contra valores extremos}
+  \begin{figure}
+    \begin{tikzpicture}
+      \begin{axis}[ymin=0, ymax=0.4, xmin=-6, xmax=6, height=5cm, width=7cm, ytick={\empty},%
+        legend style={%
+          cells={anchor=east},%
+          legend pos=outer north east,%
+        }%
+        ]
+        \addplot [samples=150, smooth, no markers, blue, thick, dashed] {exp{-0.5*x^2}/sqrt{2*pi}};%
+        \addlegendentry{Normal} \foreach \n in {1,2,4}{%
+          \addplot gnuplot [samples=150, smooth, thick, no marks, domain={-6:+6}]{\basefunc};%
+          \addlegendentryexpanded{$\nu=$ \n};%
+        }
+      \end{axis}
+    \end{tikzpicture}
+    \caption{\emph{t}-Distribución de Student}
+  \end{figure}
+  \begin{itemize}
+  \item Cómo decidir el valor de $\nu$?
+  \item Modelamiento jerárquico
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \frametitle{Modelamiento jerárquico}
+  \begin{itemize}
+  \item Las distribuciones anteriores de los parámetros, $\theta$, se eligen usualmente como distribuciones parametrizadas de la forma $p(\theta \mid \nu)$ con sus propios parámetros $\nu$, o \emph{hiperparámetros}
+  \item Podemos asignar \emph{distribuciones hiperanteriores} $p(\nu)$ a éstos hiperparámetros 
+    \begin{equation*}
+      p(\theta, \nu \mid y, X) = \frac{p(y \mid X, \theta) p(\theta \mid \nu) p(\nu) }{\int p(y \mid X, \theta) p(\theta \mid \nu) p(\nu) \, \symrm{d} \theta \symrm{d} \nu}
+    \end{equation*}
+  \end{itemize}
+\end{frame}
+%
+\begin{frame}
+  \pythonframe
 \end{frame}
 
 \end{document}
@@ -154,5 +217,6 @@
 % Local Variables:
 % TeX-master: t
 % TeX-engine: luatex
+% TeX-command-extra-options: "-shell-escape"
 % ispell-local-dictionary: "spanish"
 % End:
